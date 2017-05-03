@@ -1,0 +1,18 @@
+{
+  "name": "first-go",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack src/index.js bin/app.js --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mithril": "^1.1.1",
+    "pouchdb": "^6.2.0",
+    "webpack": "^2.4.1"
+  }
+}
