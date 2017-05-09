@@ -15,6 +15,8 @@ module.exports = {
 					m("a.w3-bar-item w3-button w3-padding-large", { href: '/surveys', oncreate: m.route.link }, "Surveys")
 				])
 			]),
+			m("br"),
+			m("br"),
 			m("section", vnode.children),
 			m("footer.w3-container w3-padding-64 w3-center w3-opacity",
 				m(".w3-xlarge w3-padding-32", [
