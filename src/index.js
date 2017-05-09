@@ -1,6 +1,6 @@
 var m = require("mithril")
 
-var BeachList = require("./views/beachList")
+var BeachList = require("./views/newbeachList")
 var BeachForm = require("./views/beachForm")
 var BeachDetail = require("./views/beachDetail")
 var Layout = require("./views/layout")
