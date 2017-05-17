@@ -16,7 +16,7 @@ var Beach = {
 			endkey: 'beach_\uffff'
 		}).then(function(result) {
 			Beach.list = result.rows
-			console.log("loadlist: returned " + result.rows.length)
+			console.log("beach.loadlist: returned " + result.rows.length)
 			m.redraw()
 		}).catch(function(err) {
 			console.log(err)
@@ -33,7 +33,7 @@ var Beach = {
 		} else {
 			return db.get(id).then(function(doc) {
 				Beach.current = doc
-				console.log("load: returned :id " + doc._id + " name: " + doc.name)
+				console.log("beach.load: returned :id " + doc._id + " rev: " + doc._rev)
 				m.redraw()
 			}).catch(function(err) {
 				console.log(err)
@@ -48,10 +48,10 @@ var Beach = {
 			Beach.current._id = "beach_" + Beach.current.name.trim().toLowerCase()
 		}
 
-		console.log("save: _id " + Beach.current._id + " name " + Beach.current._rev)
+		console.log("beach.save: _id " + Beach.current._id + " name " + Beach.current._rev)
 
 		return db.put(Beach.current).then(function(response) {
-			console.log("save: ok " + response.ok + " rev: " + response.rev)
+			console.log("beach.save: ok " + response.ok + " rev: " + response.rev)
 		}).catch(function(err) {
 			console.log(err)
 		})
