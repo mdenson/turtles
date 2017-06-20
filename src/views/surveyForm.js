@@ -1,6 +1,12 @@
 var m = require("mithril")
 var Survey = require("../models/survey")
 
+function headerTitle(survey) {
+	title = survey.date ? survey.date : "New Survey"
+	title += survey.beach ? " - " + survey.beach : ""
+	return title
+}
+
 module.exports = {
 	oninit: function(vnode) { 
 		console.log("surveyForm: oninit - vnode.attrs.id " + vnode.attrs.id)
@@ -16,8 +22,8 @@ module.exports = {
 			}, [
 				m(".w3-card w3-row-padding w3-padding", [
 				m(".w3-container w3-black", [
-					m("header.w3-container w3-black", 
-						m("h4", "2017-03-12 Survey - MDMAP ID #120 Zero - Standing-Stock"),
+					m("header.w3-container w3-black",
+						m("h4", headerTitle(Survey.current)),
 						m("button.w3-button w3-black w3-padding-large w3-large w3-right[type=submit]", "Save")
 					),
 				]),
@@ -47,6 +53,7 @@ module.exports = {
 						),
 						m(".w3-cell-row", [
 							m(".w3-container w3-cell", [
+								m("p", "Beach"),
 								m("p", "Transect ID"),
 								m("p", "Start Coords"),
 								m("p", "End Coords"),
@@ -65,6 +72,7 @@ module.exports = {
 								m("p", "Notes")
 							]),
 							m(".w3-container w3-cell", [
+								m("input.w3-input[type=text][placeholder=Beach]", {oninput: m.withAttr("value", function(value) { Survey.current.beach = value }), value: Survey.current.beach}),
 								m("input.w3-input[type=text][placeholder=Transect]", {oninput: m.withAttr("value", function(value) { Survey.current.transect = value }), value: Survey.current.transect}),
 								m("input.w3-input[type=text][placeholder=start]", {oninput: m.withAttr("value", function(value) { Survey.current.startlat = value }), value: Survey.current.startlat}),
 								m("input.w3-input[type=text][placeholder=end]", {oninput: m.withAttr("value", function(value) { Survey.current.endlat = value }), value: Survey.current.endlat}),

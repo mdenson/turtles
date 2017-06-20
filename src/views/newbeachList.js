@@ -4,6 +4,7 @@ var Beach = require("../models/beach")
 module.exports = {
 	oninit: Beach.loadlist,
 	view: function() {
+		Beach.current = {}
 		console.log("beachList.view: Beach.list length " + Beach.list.length)
 		return m(".w3-container w3-padding-24", [
 			m(".w3-container w3-black", [

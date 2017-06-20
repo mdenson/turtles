@@ -11,9 +11,8 @@ var Survey = {
 	loadlist: function() {
 		return db.allDocs({
 			include_docs: true,
-			//descending: true,
-			startkey: 'survey_',
-			endkey: 'survey_\uffff'
+			startkey: "survey_",
+			endkey: "survey_\uffff"
 		}).then(function(result) {
 			Survey.list = result.rows
 			console.log("survey.loadlist: returned " + result.rows.length)
@@ -45,8 +44,8 @@ var Survey = {
 	save: function() {
 		if (!Survey.current._id) {
 			// new entry
-			// TODO: need unique identifier beach/date/transect/...
-			Survey.current._id = "survey_" + Survey.current.date.trim()
+			// TODO: need to ensure beach is present and valid
+			Survey.current._id = "survey_" + Survey.current.beach.trim().toLowerCase() + "_" + Survey.current.date.trim()
 		}
 
 		console.log("survey.save: _id " + Survey.current._id + " rev " + Survey.current._rev)
