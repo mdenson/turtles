@@ -1,11 +1,12 @@
 {
-  "name": "first-go",
+  "name": "turtles",
   "version": "1.0.0",
-  "description": "",
+  "description": "a simple application to help the turtles",
+  "repository": "github:mdenson/turtles",
   "main": "index.js",
   "scripts": {
     "start": "webpack src/index.js bin/app.js --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "cypress:open": "cypress open"
   },
   "keywords": [],
   "author": "",
