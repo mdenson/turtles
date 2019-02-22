@@ -1,10 +1,10 @@
-var BeachList = require('./views/newbeachList');
-var BeachForm = require('./views/beachForm');
-var BeachDetail = require('./views/beachDetail');
-var SurveyList = require('./views/surveyList');
-var SurveyForm = require('./views/surveyForm');
-var SurveyDetail = require('./views/surveyDetail');
-var Layout = require('./views/layout');
+import NewBeachList from './views/newbeachList';
+import BeachForm from './views/beachForm';
+import BeachDetail from './views/beachDetail';
+import SurveyList from './views/surveyList';
+import SurveyForm from './views/surveyForm';
+import SurveyDetail from './views/surveyDetail';
+import Layout from './views/layout';
 
 if (module.hot) {
     module.hot.accept();
@@ -23,7 +23,7 @@ m.route(document.body, '/', {
     },
     '/beaches': {
         render: function() {
-            return m(Layout, m(BeachList));
+            return m(Layout, m(NewBeachList));
         },
     },
     '/beaches/:id': {

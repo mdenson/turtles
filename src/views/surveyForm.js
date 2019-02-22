@@ -1,12 +1,12 @@
-var Survey = require('../models/survey');
+import Survey from '../models/survey';
 
 function headerTitle(survey) {
-    title = survey.date ? survey.date : 'New Survey';
+    let title = survey.date ? survey.date : 'New Survey';
     title += survey.beach ? ' - ' + survey.beach : '';
     return title;
 }
 
-module.exports = {
+var SurveyForm = {
     oninit: function(vnode) {
         console.log('surveyForm: oninit - vnode.attrs.id ' + vnode.attrs.id);
         Survey.load(vnode.attrs.id);
@@ -1040,3 +1040,5 @@ module.exports = {
         );
     },
 };
+
+export default SurveyForm;

@@ -1,6 +1,6 @@
-var Beach = require('../models/beach');
+import Beach from '../models/beach';
 
-module.exports = {
+var BeachList = {
     oninit: Beach.loadlist,
     view: function() {
         console.log('beachList.view: Beach.list length ' + Beach.list.length);
@@ -31,3 +31,5 @@ module.exports = {
         ]);
     },
 };
+
+export default BeachList;

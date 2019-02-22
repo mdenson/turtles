@@ -1,6 +1,6 @@
-var Survey = require('../models/survey');
+import Survey from '../models/survey';
 
-module.exports = {
+var SurveyList = {
     oninit: Survey.loadlist,
     view: function() {
         console.log(
@@ -57,3 +57,5 @@ module.exports = {
         ]);
     },
 };
+
+export default SurveyList;

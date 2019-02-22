@@ -1,6 +1,6 @@
-var Beach = require('../models/beach');
+import Beach from '../models/beach';
 
-module.exports = {
+var NewBeachList = {
     oninit: Beach.loadlist,
     view: function() {
         Beach.current = {};
@@ -55,3 +55,5 @@ module.exports = {
         ]);
     },
 };
+
+export default NewBeachList;

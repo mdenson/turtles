@@ -1,6 +1,6 @@
-var Beach = require('../models/beach');
+import Beach from '../models/beach';
 
-module.exports = {
+var BeachForm = {
     oninit: function(vnode) {
         console.log('beachForm: oninit - vnode.attrs.id ' + vnode.attrs.id);
         Beach.load(vnode.attrs.id);
@@ -476,3 +476,5 @@ module.exports = {
         );
     },
 };
+
+export default BeachForm;

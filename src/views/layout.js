@@ -1,4 +1,4 @@
-module.exports = {
+var Layout = {
     view: function(vnode) {
         return m('main.layout', [
             m('.w3-top', [
@@ -59,3 +59,5 @@ module.exports = {
         ]);
     },
 };
+
+export default Layout;
