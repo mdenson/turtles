@@ -52,7 +52,7 @@ var Layout = {
                 m('.w3-xlarge w3-padding-32', [
                     m(
                         'p',
-                        'A less than impressive data entry web application by Brock Denson',
+                        'A data entry web application for  The Science Exchange',
                     ),
                 ]),
             ),

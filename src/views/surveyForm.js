@@ -6,6 +6,158 @@ function headerTitle(survey) {
     return title;
 }
 
+var w3InputRow = {
+    view: (vnode) => {
+        return m('div.w3-cell-row', [
+            m('p.w3-cell.w3-third', vnode.attrs.label),
+            m(
+                'input.w3-input.w3-cell.w3-twothird[type=text][placeholder=' +
+                    vnode.attrs.placeholder +
+                    ']',
+                {
+                    oninput: m.withAttr('value', function(v) {
+                        vnode.attrs.value = v;
+                    }),
+                    value: vnode.attrs.value,
+                },
+            ),
+        ]);
+    },
+};
+
+var w3Section = {
+    view: (vnode) => {
+        return m(
+            'div.w3-container',
+            m('div.w3-content', [
+                m(
+                    'header.w3-container w3-dark-grey',
+                    m('h5', vnode.attrs.title),
+                ),
+                vnode.attrs.content.map((item) => {
+                    console.log('w3Section: item ' + item.label);
+                    return m(w3InputRow, {
+                        label: item.label,
+                        value: item.value,
+                        placeholder: item.placeholder,
+                    });
+                }),
+            ]),
+        );
+    },
+};
+
+var GeneralSection = [
+    {
+        label: 'Surveyor Name',
+        value: Survey.current.surveyor,
+        placeholder: 'Joe Dirt',
+    },
+    {
+        label: 'Phone',
+        value: Survey.current.phone,
+        placeholder: '+15558765309',
+    },
+    {
+        label: 'Email',
+        value: Survey.current.email,
+        placeholder: 'joe@yahoo.com',
+    },
+    {
+        label: 'Date',
+        value: Survey.current.date,
+        placeholder: 'yyyymmdd',
+    },
+];
+
+var AdditionalInfoSection = [
+    {
+        label: 'Beach',
+        value: Survey.current.beach,
+        placeholder: 'beach',
+    },
+    {
+        label: 'Transect ID',
+        value: Survey.current.transect,
+        placeholder: 'transect number',
+    },
+    {
+        label: 'Start Coords',
+        value: Survey.current.startlat,
+        placeholder: 'start',
+    },
+    {
+        label: 'End Coords',
+        value: Survey.current.endlat,
+        placeholder: 'end',
+    },
+    {
+        label: 'Width of Beach',
+        value: Survey.current.beachwidth,
+        placeholder: 'width in meters',
+    },
+    {
+        label: 'Start Time',
+        value: Survey.current.starttime,
+        placeholder: '10:00am',
+    },
+    {
+        label: 'End Time',
+        value: Survey.current.endtime,
+        placeholder: '12:00am',
+    },
+    {
+        label: 'Time of Low Tide',
+        value: Survey.current.lowtide,
+        placeholder: '12:00am',
+    },
+    {
+        label: 'Season',
+        value: Survey.current.season,
+        placeholder: 'summer',
+    },
+    {
+        label: 'Date of Previous Survey',
+        value: Survey.current.previous,
+        placeholder: 'yyyymmdd',
+    },
+    {
+        label: 'Storm Activity',
+        value: Survey.current.storm,
+        placeholder: 'calm',
+    },
+    {
+        label: 'Current Weather',
+        value: Survey.current.weather,
+        placeholder: 'clean',
+    },
+    {
+        label: 'Number of Surveyors',
+        value: Survey.current.npeople,
+        placeholder: '1',
+    },
+    {
+        label: 'Large Items',
+        value: Survey.current.largeitems,
+        placeholder: 'count of large items',
+    },
+    {
+        label: 'Debris Behind Back Barrier',
+        value: Survey.current.debris,
+        placeholder: 'count of items',
+    },
+    {
+        label: 'Debris Survey Datasheet > v2.0',
+        value: Survey.current.v2,
+        placeholder: 'yes',
+    },
+    {
+        label: 'Notes',
+        value: Survey.current.notes,
+        placeholder: 'notes',
+    },
+];
+
 var SurveyForm = {
     oninit: function(vnode) {
         console.log('surveyForm: oninit - vnode.attrs.id ' + vnode.attrs.id);
@@ -42,303 +194,14 @@ var SurveyForm = {
                         ),
                     ]),
                     m('.w3-container', [
-                        m('.w3-half w3-padding', [
-                            m(
-                                'header.w3-container w3-dark-grey',
-                                m('h5', 'General Info'),
-                            ),
-                            m('.w3-cell-row', [
-                                m('.w3-container w3-cell', [
-                                    m('p', 'Surveyor Name'),
-                                    m('p', 'Phone'),
-                                    m('p', 'Email'),
-                                    m('p', 'Date'),
-                                ]),
-                                m('.w3-container w3-cell', [
-                                    m(
-                                        'input.w3-input[type=text][placeholder=Surveyor]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.surveyor = value;
-                                                },
-                                            ),
-                                            value: Survey.current.surveyor,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=Phone]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.phone = value;
-                                                },
-                                            ),
-                                            value: Survey.current.phone,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=Email]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.email = value;
-                                                },
-                                            ),
-                                            value: Survey.current.email,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=YYYYMMDD]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.date = value;
-                                                },
-                                            ),
-                                            value: Survey.current.date,
-                                        },
-                                    ),
-                                ]),
-                            ]),
-                        ]),
-                        m('.w3-half w3-padding', [
-                            m(
-                                'header.w3-container w3-dark-grey',
-                                m('h5', 'Additional Information'),
-                            ),
-                            m('.w3-cell-row', [
-                                m('.w3-container w3-cell', [
-                                    m('p', 'Beach'),
-                                    m('p', 'Transect ID'),
-                                    m('p', 'Start Coords'),
-                                    m('p', 'End Coords'),
-                                    m('p', 'Width of Beach (m)'),
-                                    m('p', 'Start Time'),
-                                    m('p', 'End Time'),
-                                    m('p', 'Time of Low Tide'),
-                                    m('p', 'Season'),
-                                    m('p', 'Date of Previous Survey'),
-                                    m('p', 'Storm Activity'),
-                                    m('p', 'Current Weather'),
-                                    m('p', 'Number of Surveyors'),
-                                    m('p', 'Large Items'),
-                                    m('p', 'Debris Behind Back Barrier'),
-                                    m('p', 'Debris Survey Datasheet > v2.0'),
-                                    m('p', 'Notes'),
-                                ]),
-                                m('.w3-container w3-cell', [
-                                    m(
-                                        'input.w3-input[type=text][placeholder=Beach]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.beach = value;
-                                                },
-                                            ),
-                                            value: Survey.current.beach,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=Transect]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.transect = value;
-                                                },
-                                            ),
-                                            value: Survey.current.transect,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=start]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.startlat = value;
-                                                },
-                                            ),
-                                            value: Survey.current.startlat,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=end]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.endlat = value;
-                                                },
-                                            ),
-                                            value: Survey.current.endlat,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=in meters]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.beachwidth = value;
-                                                },
-                                            ),
-                                            value: Survey.current.beachwidth,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=start time]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.starttime = value;
-                                                },
-                                            ),
-                                            value: Survey.current.starttime,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=end time]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.endtime = value;
-                                                },
-                                            ),
-                                            value: Survey.current.endtime,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=low tide time]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.lowtide = value;
-                                                },
-                                            ),
-                                            value: Survey.current.lowtide,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=season]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.season = value;
-                                                },
-                                            ),
-                                            value: Survey.current.season,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=date]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.previous = value;
-                                                },
-                                            ),
-                                            value: Survey.current.previous,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=storm activity]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.storm = value;
-                                                },
-                                            ),
-                                            value: Survey.current.storm,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=current weather]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.weather = value;
-                                                },
-                                            ),
-                                            value: Survey.current.weather,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=number of people]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.npeople = value;
-                                                },
-                                            ),
-                                            value: Survey.current.npeople,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=y/n]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.largeitems = value;
-                                                },
-                                            ),
-                                            value: Survey.current.largeitems,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=y/n]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.debris = value;
-                                                },
-                                            ),
-                                            value: Survey.current.debris,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=y/n]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.v2 = value;
-                                                },
-                                            ),
-                                            value: Survey.current.v2,
-                                        },
-                                    ),
-                                    m(
-                                        'input.w3-input[type=text][placeholder=notes]',
-                                        {
-                                            oninput: m.withAttr(
-                                                'value',
-                                                function(value) {
-                                                    Survey.current.notes = value;
-                                                },
-                                            ),
-                                            value: Survey.current.notes,
-                                        },
-                                    ),
-                                ]),
-                            ]),
-                        ]),
+                        m(w3Section, {
+                            title: 'General',
+                            content: GeneralSection,
+                        }),
+                        m(w3Section, {
+                            title: 'Additional Info',
+                            content: AdditionalInfoSection,
+                        }),
                         m('.w3-half w3-padding', [
                             m(
                                 'header.w3-container w3-dark-grey',
