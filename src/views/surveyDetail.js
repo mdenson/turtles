@@ -1,4 +1,3 @@
-var m = require("mithril")
 var Survey = require("../models/survey")
 
 function drawSurveyTable(survey, rows) {
