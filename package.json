@@ -1,7 +1,7 @@
 {
     "name": "turtles",
-    "version": "1.0.0",
-    "description": "a simple application to help the turtles",
+    "version": "0.0.1",
+    "description": "a webapp for collecting turtle data",
     "repository": "github:mdenson/turtles",
     "private": true,
     "scripts": {
