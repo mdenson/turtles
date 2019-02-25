@@ -8,47 +8,56 @@ function headerTitle(survey) {
 }
 
 var w3InputRow = {
+    oninit: (vnode) => {
+        if (!vnode.attrs.value && vnode.attrs.defaultValue) {
+            vnode.attrs.value = vnode.attrs.defaultValue;
+        }
+    },
     view: (vnode) => {
+        let placeholder = vnode.attrs.placeholder
+            ? '[placeholder=' + vnode.attrs.placeholder + ']'
+            : '';
         return m('div.w3-cell-row', [
             m('p.w3-cell.w3-third', vnode.attrs.label),
-            m(
-                'input.w3-input.w3-cell.w3-twothird[type=text][placeholder=' +
-                    vnode.attrs.placeholder +
-                    ']',
-                {
-                    oninput: m.withAttr('value', function(v) {
-                        vnode.attrs.value = v;
-                    }),
-                    value: vnode.attrs.value
-                        ? vnode.attrs.value
-                        : vnode.attrs.defaultValue,
-                },
-            ),
+            m('input.w3-input.w3-cell.w3-twothird[type=text]' + placeholder, {
+                oninput: m.withAttr('value', function(v) {
+                    vnode.attrs.value = v;
+                }),
+                value: vnode.attrs.value,
+            }),
         ]);
     },
 };
 
-var w3InputCountRow = {
+var w3InputCounterRow = {
+    oninit: (vnode) => {
+        if (!vnode.attrs.value && vnode.attrs.defaultValue) {
+            vnode.attrs.value = vnode.attrs.defaultValue;
+        }
+    },
     view: (vnode) => {
-        /*TODO: figure out how to set a default value.  each button click causes a redraw, which resets it to default.  maybe a pure function instead of a component would work */
+        let placeholder = vnode.attrs.placeholder
+            ? '[placeholder=' + vnode.attrs.placeholder + ']'
+            : '';
         return m(
             'div.w3-cell-row',
             {
                 onclick: function(e) {
-                    /* TODO: FRAGILE!!! */
+                    /* TODO: FRAGILE!!! id's would make more sense */
                     if (e.target.id === 'plus') {
-                        this.childNodes[1].value++;
+                        this.childNodes[1].getElementsByTagName('input')[0]
+                            .value++;
                     } else if (e.target.id === 'minus') {
-                        this.childNodes[1].value--;
+                        this.childNodes[1].getElementsByTagName('input')[0]
+                            .value--;
                     }
                 },
             },
             [
                 m('p.w3-cell.w3-third', vnode.attrs.label),
                 m(
-                    'input.w3-input.w3-cell.w3-third[type=text][placeholder=' +
-                        vnode.attrs.placeholder +
-                        ']',
+                    'input.w3-cell.w3-rest.w3-input[type=text]' +
+                        vnode.attrs.placeholder,
                     {
                         oninput: m.withAttr('value', function(v) {
                             vnode.attrs.value = v;
@@ -56,10 +65,14 @@ var w3InputCountRow = {
                         value: vnode.attrs.value,
                     },
                 ),
-                m('span.w3-third', [
-                    m('button.w3-button.w3-blue.w3-right#plus', '+'),
-                    m('button.w3-button.w3-red.w3-right#minus', '-'),
-                ]),
+                m(
+                    'button.w3-button.w3-blue.w3-right.w3-cell.w3-col#plus[type=button]' /* default type is submit, which submitted the form each time */,
+                    '+',
+                ),
+                m(
+                    'button.w3-button.w3-red.w3-right.w3-cell.w3-col#minus[type=button]',
+                    '-',
+                ),
             ],
         );
     },
@@ -76,7 +89,7 @@ var w3Section = {
                 m('div.w3-container ' + titlecolor, m('h5', vnode.attrs.title)),
                 vnode.attrs.content.map((item) => {
                     if (vnode.attrs.type === 'inputCount') {
-                        return m(w3InputCountRow, {
+                        return m(w3InputCounterRow, {
                             label: item.label,
                             value: item.value,
                             defaultValue: item.defaultValue,
@@ -113,6 +126,7 @@ var SurveyForm = {
             'form',
             {
                 onsubmit: function(e) {
+                    alert('oh no!' + e.target.class);
                     e.preventDefault();
                     Survey.save();
                     m.route.set('/surveys/' + Survey.current._id);
